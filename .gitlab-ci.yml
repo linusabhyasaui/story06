@@ -8,16 +8,17 @@ test:
     - pip install -r requirements.txt
     - python manage.py test
 
-#staging:
-#  stage: deploy
-#  script:
-#    -
-#  only:
-#    -
-#
-#production:
-#  stage: deploy
-#  script:
-#    -
-#  only:
-#    -
+#f52e9538-07f2-4f31-ab4e-11ec969a6f45
+staging:
+  stage: deploy
+  script:
+    - dpl --provider=heroku --app=gitlab-ci-python-test-staging --api-key=f52e9538-07f2-4f31-ab4e-11ec969a6f45
+  only:
+    - master
+
+production:
+  stage: deploy
+  script:
+    - dpl --provider=heroku --app=gitlab-ci-python-test-prod --api-key=f52e9538-07f2-4f31-ab4e-11ec969a6f45
+  only:
+    - tags
