@@ -16,6 +16,7 @@ import event_manager.views
 
 urlpatterns = [
     path("", event_manager.views.index, name="index"),
+    # path("/filtered_<filtered>", event_manager.views.get_filtered(filtered), name="filtered"),
     path("db/", event_manager.views.db, name="db"),
     path("admin/", admin.site.urls),
 ]

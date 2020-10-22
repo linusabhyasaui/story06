@@ -1,15 +1,17 @@
 from django.shortcuts import render
 
 # Create your views here.
-from event_manager.models import event
+from event_manager.models import event, participant
 
 
 def get_main(request):
-    return
+    context = ""
+    return render(request, "", context)
 
 
-def get_filtered(request):
-    return
+def get_filtered(request, filtered):
+    context = ""
+    return render(request, "", context)
 
 
 def get_participants(request):
@@ -22,7 +24,7 @@ def index(request):
 
 
 def db(request):
-    greeting = event
+    greeting = event()
     greeting.save()
 
     greetings = event.objects.all()
