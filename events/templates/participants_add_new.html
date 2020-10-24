@@ -16,13 +16,26 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="lesson">Participant name</label>
-                            <input type="text" class="form-control" id="event" name="event" placeholder="" value="{{ participant.name }}" required>
+                            <input type="text" class="form-control" id="participant" name="participant" placeholder="" value="{{ participant.name }}" required>
                             <div class="invalid-feedback">
                                 Valid participant name is required.
                             </div>
                         </div>
                     </div>
-
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <<label for="lesson">Event</label>
+                            <select class="custom-select d-block w-100" id="event" name="event" required>
+                                <option value="">Choose...</option>
+                                {% for event in all_events %}
+                                    <option value={{ event }}>{{ event }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="invalid-feedback">
+                                Valid Event is required.
+                            </div>
+                        </div>
+                    </div>
                     <hr class="mb-4">
                     <button class="btn btn-primary btn-lg btn-block" type="submit" value="add">Add participant</button>
                 </form>

@@ -66,16 +66,6 @@ def add_lesson(request):
         return render(request, "events_add.html", context)
 
 
-def add_participant(request):
-    if not Event.objects.exists():
-        return render(request, "participants_add_new.html")
-    else:
-        all_participants = Participant.objects.all()
-        participants_count = Participant.objects.all().count()
-        context = {'all_participants': all_participants, 'participants_count': participants_count}
-        return render(request, "participants_add.html", context)
-
-
 def add(request):
     the_values = {
         "key": "the_values"
@@ -89,6 +79,22 @@ def add(request):
     return redirect('events:view_events')
 
 
+def add_participant(request):
+    if not Event.objects.exists():
+        raise Http404("No Events registered")
+    else:
+        all_events = Event.objects.all()
+        if not Participant.objects.exists():
+            context = {'all_events': all_events}
+            return render(request, "participants_add_new.html", context)
+        else:
+            all_participants = Participant.objects.all()
+            participants_count = Participant.objects.all().count()
+            context = {'all_participants': all_participants, 'participants_count': participants_count,
+                       'all_events': all_events}
+            return render(request, "participants_add.html", context)
+
+
 # TODO
 def add_p(request):
     the_values = {
@@ -96,12 +102,13 @@ def add_p(request):
     }
     for key, value in request.POST.items():
         the_values[key] = value
-        print(key + " " + value)
+        # print(key + " " + value)
+    the_values["event"] = Event.objects.all().filter(name=the_values["event"])[0]
+    print(the_values)
+    new_participant = Participant(name=the_values["participant"], event_key=the_values["event"])
 
-    # new_lesson = Event(name=the_values["event"])
-
-    # new_lesson.save()
-    return redirect('events:view_events')
+    new_participant.save()
+    return redirect('events:add_participant')
 
 
 def clearer(request):
