@@ -1,0 +1,43 @@
+{% extends "events.html" %}
+{% load static %}
+
+{% block content %}
+
+    <h1>List of Events</h1>
+    <div class="row mb-3">
+        <div class="col-md-2 themed-grid-col">Events</div>
+        <div class="col-md-10 themed-grid-col">Participant(s)</div>
+    </div>
+    <div class="row mb-1 bg-dark">
+        <div class="col-md-12">.</div>
+    </div>
+
+    {% if all_events %}
+        {% for event in all_events %}
+            <div class="row mb-3">
+                <div class="col-md-2 themed-grid-col">{{ event.name }}</div>
+                <div class="col-md-9 themed-grid-col">
+{#                    {{ participant }}#}
+{#                    {% for participant in event.participants %}#}
+{#                        {{ participant }}#}
+{#                    {% endfor %}#}
+                    {% for participant in all_participants %}
+                        {% if participant.event_key == event %}
+                            {{ participant.name }},
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <form class="needs-validation" action="{% url 'events:delete' %}" method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="col-md-1 themed-grid-col">
+                        <button type="submit" class="btn btn-secondary" name="name" value="{{ event.name }}">Delete</button>
+                    </div>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="row mb-12">
+            <div class="col-md-2 themed-grid-col">No Events Registered</div>
+        </div>
+    {% endif %}
+{% endblock %}

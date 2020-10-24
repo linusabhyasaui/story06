@@ -1,0 +1,51 @@
+{% extends "events.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Add Event</h2>
+            <p class="lead">Got an event you want to register? Add it below!</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 order-md-2 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Your events</span>
+                    <span class="badge badge-secondary badge-pill">{{ event_count }}</span>
+                </h4>
+
+                <ul class="list-group mb-3">
+                    {% for event in all_events %}
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">{{ event.name }}</h6>
+                            </div>
+                            <span class="text-muted">{{ event.participants_count }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-8 order-md-1">
+                <h4 class="mb-3">Add event</h4>
+                <form class="needs-validation" action="{% url 'events:add' %}" method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="lesson">Event name</label>
+                            <input type="text" class="form-control" id="event" name="event" placeholder="" value="{{ event.name }}" required>
+                            <div class="invalid-feedback">
+                                Valid event name is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" value="add">Add event</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../static/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/form-validation.js"></script></body>
+{% endblock %}

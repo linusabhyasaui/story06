@@ -1,0 +1,34 @@
+{% extends "events.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Add Participant</h2>
+            <p class="lead">Got an participant you want to register?</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 order-md-1">
+                <h4 class="mb-3">Add participant</h4>
+                <form class="needs-validation" action="{% url 'events:add_p' %}" method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="lesson">Participant name</label>
+                            <input type="text" class="form-control" id="event" name="event" placeholder="" value="{{ participant.name }}" required>
+                            <div class="invalid-feedback">
+                                Valid participant name is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" value="add">Add participant</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../static/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/form-validation.js"></script>
+{% endblock %}

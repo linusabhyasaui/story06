@@ -1,10 +1,9 @@
 from django.urls import path, include
 
 from django.contrib import admin
+import events.views
 
 admin.autodiscover()
-
-import event_manager.views
 
 # To add a new path, first import the app:
 # import blog
@@ -15,8 +14,8 @@ import event_manager.views
 # Learn more here: https://docs.djangoproject.com/en/2.1/topics/http/urls/
 
 urlpatterns = [
-    path("", event_manager.views.index, name="index"),
-    # path("/filtered_<filtered>", event_manager.views.get_filtered(filtered), name="filtered"),
-    path("db/", event_manager.views.db, name="db"),
+    path("", events.views.index, name="index"),
+
+    path("events/", include('events.urls'), name="events"),
     path("admin/", admin.site.urls),
 ]
