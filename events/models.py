@@ -8,8 +8,6 @@ from django.shortcuts import get_object_or_404, redirect
 
 class Event(models.Model):
     name = models.CharField(max_length=500)
-    participants = {}
-    participant_count = 0
 
     def delete(self):
         self.delete()
